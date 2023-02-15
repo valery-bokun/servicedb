@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(test_request_parser)
   bool result; 
 
-  BOOST_AUTO_TEST_CASE(pares_crlf) {
+  BOOST_AUTO_TEST_CASE(parse_crlf) {
     request_parser parser;
     request req;
     char buff[] = "GET / HTTP/1.1\r\nHost: alizar.habrahabr.ru\r\n\r\n";
@@ -75,7 +75,21 @@ BOOST_AUTO_TEST_SUITE(test_request_parser)
     BOOST_REQUIRE(req.headers[0].value=="alizar.habrahabr.ru");
   }
 
-  BOOST_AUTO_TEST_CASE(pares_lf) {
+  BOOST_AUTO_TEST_CASE(parse_crlf_tab) {
+    request_parser parser;
+    request req;
+    char buff[] = "GET\t/\tHTTP/1.1\r\nHost:\talizar.habrahabr.ru\r\n\r\n";
+    result = parser.parse(req, buff, strlen(buff));
+    BOOST_REQUIRE(result==true); 
+    BOOST_REQUIRE(req.method=="GET");
+    BOOST_REQUIRE(req.uri=="/");
+    BOOST_REQUIRE(req.http_version=="HTTP/1.1");
+    BOOST_REQUIRE(req.headers.size()==1);
+    BOOST_REQUIRE(req.headers[0].name=="Host");
+    BOOST_REQUIRE(req.headers[0].value=="alizar.habrahabr.ru");
+  }
+
+  BOOST_AUTO_TEST_CASE(parse_lf) {
     request_parser parser;
     request req;
     char buff[] = "GET / HTTP/1.1\nHost: alizar.habrahabr.ru\n\n";
@@ -89,7 +103,7 @@ BOOST_AUTO_TEST_SUITE(test_request_parser)
     BOOST_REQUIRE(req.headers[0].value=="alizar.habrahabr.ru");
   }
 
-  BOOST_AUTO_TEST_CASE(pares_crlf_content) {
+  BOOST_AUTO_TEST_CASE(parse_crlf_content) {
     request_parser parser;
     request req;
     char buff[] = "GET / HTTP/1.0\r\n\r\nTEST";
@@ -102,7 +116,7 @@ BOOST_AUTO_TEST_SUITE(test_request_parser)
     BOOST_REQUIRE(req.content=="TEST");
   }
 
-  BOOST_AUTO_TEST_CASE(pares_crlf_partial) {
+  BOOST_AUTO_TEST_CASE(parse_crlf_partial) {
     request_parser parser;
     request req;
     char buff[] = "GET / HTTP/1.1\r\nHost: alizar.habrahabr.ru\r\n\r\n";
