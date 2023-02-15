@@ -1,0 +1,84 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++.exe build ACTIVE file",
+			"command": "C:\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-c", "-pipe", "-O2", "-frtti", "-fexceptions", "-mthreads", "-Wall", "-Wextra", "-DUNICODE",
+				"-I", "${workspaceFolder}/src/",
+				"-I", "c:/Boost/include/boost-1_81/",
+                "-I", "c:/openssl-1.1.1t/include",
+				"-o", "${workspaceFolder}/bin/${fileBasenameNoExtension}.o", "${file}"
+			],
+			"options": {
+				"cwd": "C:\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: C:\\mingw64\\bin\\g++.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++.exe REBUILD project",
+			"command": "C:\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-O3",
+                "${workspaceFolder}/main.cpp",
+				"${workspaceFolder}/src/*.cpp",
+				"-I", "${workspaceFolder}/src/",
+				"-I", "c:/Boost/include/boost-1_81/",
+                "-I", "c:/openssl-1.1.1t/include",
+				"-Wl,-s", "-Wl,-subsystem,console", "-mthreads",
+				"-o",
+				"${workspaceFolder}\\bin\\serverdb.exe",
+				"-lws2_32",
+				"-L", "c:/Boost/lib/", "-llibboost_thread-mgw7-mt-x64-1_81",
+				"-L", "c:/openssl-1.1.1t/", "-lssl", "-lcrypto"
+			],
+			"options": {
+				"cwd": "C:\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "compiler: C:\\mingw64\\bin\\g++.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++.exe LINK project",
+			"command": "C:\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-O3",
+				"-Wl,-s", "-Wl,-subsystem,console", "-mthreads",
+				"-o",
+				"${workspaceFolder}\\bin\\serverdb.exe",
+				"${workspaceFolder}\\bin\\*.o",
+				"-lws2_32",
+				"-L", "c:/Boost/lib/", "-llibboost_thread-mgw7-mt-x64-1_81",
+				"-L", "c:/openssl-1.1.1t/", "-lssl", "-lcrypto"
+			],
+			"options": {
+				"cwd": "C:\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "compiler: C:\\mingw64\\bin\\g++.exe"
+		}
+	]
+}
