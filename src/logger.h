@@ -34,13 +34,12 @@ template <typename T>
 LOG &LOG::operator<<(const T msg)
 {
   is_open = true;
-  if(type_==logERROR || type_==logFATAL)
+  if(type_==logERROR || type_==logFATAL || !stream_)
     cerr << msg;
 
-  if (!stream_)
-    cerr << msg;
-
-  stream_ << msg;
+  if (stream_)
+    stream_ << msg;
+  
   return *this;
 }
 

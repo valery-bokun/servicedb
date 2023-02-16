@@ -37,7 +37,7 @@
                 "-I", "c:/openssl-1.1.1t/include",
 				"-Wl,-s", "-Wl,-subsystem,console", "-mthreads",
 				"-o",
-				"${workspaceFolder}\\bin\\serverdb.exe",
+				"${workspaceFolder}\\bin\\${workspaceFolderBasename}.exe",
 				"-lws2_32",
 				"-L", "c:/Boost/lib/", "-llibboost_thread-mgw7-mt-x64-1_81",
 				"-L", "c:/openssl-1.1.1t/", "-lssl", "-lcrypto"
@@ -62,7 +62,7 @@
 				"-O3",
 				"-Wl,-s", "-Wl,-subsystem,console", "-mthreads",
 				"-o",
-				"${workspaceFolder}\\bin\\serverdb.exe",
+				"${workspaceFolder}\\bin\\${workspaceFolderBasename}.exe",
 				"${workspaceFolder}\\bin\\*.o",
 				"-lws2_32",
 				"-L", "c:/Boost/lib/", "-llibboost_thread-mgw7-mt-x64-1_81",

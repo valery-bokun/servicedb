@@ -105,13 +105,15 @@ LOG::LOG(typelog type)
 LOG::~LOG()
 {
   if (!is_open) return;
-  if(type_==logERROR || type_==logFATAL)
+  if(type_==logERROR || type_==logFATAL || !stream_)
     cerr << endl;
+  
+  if(!stream_) return;
 
-  if (!stream_)
-    cerr << endl;
-
-  stream_ << endl;
+  if(type_==logERROR || type_==logFATAL || type_==logDEBUG )
+    stream_ << endl;
+  else
+    stream_ << '\n';
 }
 
 const char *LOG::get_label(typelog type)
